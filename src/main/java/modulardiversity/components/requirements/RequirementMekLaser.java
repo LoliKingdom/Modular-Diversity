@@ -17,7 +17,7 @@ public class RequirementMekLaser extends RequirementConsumeOnce<MekLaser, Requir
 
     public double requiredEnergy;
 
-    public RequirementMekLaser(MachineComponent.IOType actionType, double requiredEnergy) {
+    public RequirementMekLaser(IOType actionType, double requiredEnergy) {
         super(ComponentType.Registry.getComponent("meklaser"), actionType);
         this.requiredEnergy = requiredEnergy;
     }
@@ -65,7 +65,7 @@ public class RequirementMekLaser extends RequirementConsumeOnce<MekLaser, Requir
         }
 
         @Override
-        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
             energy = Misc.applyModifiers(modifiers,"meklaser",ioType, energy,false);
         }
 

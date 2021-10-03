@@ -25,7 +25,7 @@ public class ComponentMineral extends ComponentType<RequirementMineral> {
 
     @Nonnull
     @Override
-    public RequirementMineral provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementMineral provideComponent(IOType ioType, JsonObject requirement) {
         if (requirement.has("name")) {
             String name = JsonUtil.get(requirement,"name",null);
             int oreMin = JsonUtil.get(requirement,"oreMin",0);

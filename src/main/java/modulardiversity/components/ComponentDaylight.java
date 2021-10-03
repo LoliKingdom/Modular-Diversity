@@ -25,7 +25,7 @@ public class ComponentDaylight extends ComponentType<RequirementDaylight> {
 
     @Nonnull
     @Override
-    public RequirementDaylight provideComponent(MachineComponent.IOType ioType, JsonObject json) {
+    public RequirementDaylight provideComponent(IOType ioType, JsonObject json) {
         if (json.has("start") || json.has("stop")) {
             long start = 0;
             long stop = Long.MAX_VALUE;

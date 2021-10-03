@@ -25,7 +25,7 @@ public class RequirementWeather extends RequirementEnvironmental<Weather, Requir
 
     public Type weather;
 
-    public RequirementWeather(MachineComponent.IOType actionType, Type weather) {
+    public RequirementWeather(IOType actionType, Type weather) {
         super(ComponentType.Registry.getComponent("weather"), actionType);
         this.weather = weather;
     }
@@ -184,7 +184,7 @@ public class RequirementWeather extends RequirementEnvironmental<Weather, Requir
         }
 
         @Override
-        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
 
         }
 

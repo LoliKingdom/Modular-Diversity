@@ -12,7 +12,7 @@ public class TileEntityMekHeatInput extends TileEntityMekHeat {
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponents.MekHeatHatch(MachineComponent.IOType.INPUT) {
+        return new MachineComponents.MekHeatHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMekHeat.ResourceToken> getContainerProvider() {
                 return TileEntityMekHeatInput.this;

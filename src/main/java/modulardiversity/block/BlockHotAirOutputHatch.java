@@ -10,7 +10,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.world.World;
 
 public class BlockHotAirOutputHatch extends BlockMachineComponent {
@@ -23,13 +22,8 @@ public class BlockHotAirOutputHatch extends BlockMachineComponent {
         setCreativeTab(CommonProxy.creativeTabModularMachinery);
     }
 	
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
-	
 	@Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
@@ -42,12 +36,6 @@ public class BlockHotAirOutputHatch extends BlockMachineComponent {
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileHotAirOutput();
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return null;
     }
 
 }

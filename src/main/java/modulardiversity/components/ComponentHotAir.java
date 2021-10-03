@@ -8,7 +8,7 @@ import com.google.gson.JsonParseException;
 
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
-import hellfirepvp.modularmachinery.common.machine.MachineComponent.IOType;
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import modulardiversity.components.requirements.RequirementHotAir;
 import modulardiversity.components.requirements.RequirementMekHeat;
 
@@ -28,7 +28,7 @@ public class ComponentHotAir extends ComponentType<RequirementHotAir> {
     
     @Nonnull
     @Override
-    public RequirementHotAir provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementHotAir provideComponent(IOType ioType, JsonObject requirement) {
         int temperatureRequiredMin = requirement.has("temperatureRequiredMin") ? requirement.getAsJsonPrimitive("temperatureRequiredMin").getAsInt() : 0;
         int temperatureRequiredMax = requirement.has("temperatureRequiredMax") ? requirement.getAsJsonPrimitive("temperatureRequiredMax").getAsInt() : Integer.MAX_VALUE;
         int temperature = requirement.has("temperature") ? requirement.getAsJsonPrimitive("temperature").getAsInt() : 0;

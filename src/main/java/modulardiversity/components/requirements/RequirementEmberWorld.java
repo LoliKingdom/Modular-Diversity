@@ -22,7 +22,7 @@ public class RequirementEmberWorld extends RequirementEnvironmental<EmberWorld, 
     public float emberMin, emberMax;
     public float stabilityMin, stabilityMax;
 
-    public RequirementEmberWorld(MachineComponent.IOType actionType, float emberMin, float emberMax, float stabilityMin, float stabilityMax) {
+    public RequirementEmberWorld(IOType actionType, float emberMin, float emberMax, float stabilityMin, float stabilityMax) {
         super(ComponentType.Registry.getComponent("mantle"), actionType);
         this.emberMin = emberMin;
         this.emberMax = emberMax;
@@ -122,7 +122,7 @@ public class RequirementEmberWorld extends RequirementEnvironmental<EmberWorld, 
         }
 
         @Override
-        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
             emberMin =  Misc.applyModifiers(modifiers,"ember_min",ioType, emberMin,false);
             emberMax =  Misc.applyModifiers(modifiers,"ember_max",ioType, emberMax,false);
             stabilityMin =  Misc.applyModifiers(modifiers,"ember_stability_min",ioType, stabilityMin,false);

@@ -25,7 +25,7 @@ public class ComponentPosition extends ComponentType<RequirementPosition> {
 
     @Nonnull
     @Override
-    public RequirementPosition provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementPosition provideComponent(IOType ioType, JsonObject requirement) {
 
         float xMin = JsonUtil.get(requirement, "xMin", Float.NEGATIVE_INFINITY);
         float xMax = JsonUtil.get(requirement, "xMax", Float.POSITIVE_INFINITY);

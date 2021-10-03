@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import javax.annotation.Nullable;
 
 public class TileEntityDaylightDetector extends TileColorableMachineComponent {
-    private MachineComponent.IOType ioType = MachineComponent.IOType.INPUT;
+    private IOType ioType = IOType.INPUT;
 
     public TileEntityDaylightDetector() {
     }

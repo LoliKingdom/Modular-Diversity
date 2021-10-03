@@ -1,9 +1,11 @@
 package modulardiversity.block.prop;
 
-import modulardiversity.ModularDiversity;
 import net.minecraft.util.IStringSerializable;
 
+import java.util.Locale;
+
 public enum EmberHatchSize implements IStringSerializable {
+
     TINY(100.0D),
     SMALL(800.0D),
     COPPER(4000.0D),
@@ -13,7 +15,9 @@ public enum EmberHatchSize implements IStringSerializable {
     REACTOR(64000.0D),
     CRYSTAL(1440000.0D);
 
-    private double size;
+    public static final EmberHatchSize[] VALUES = values();
+
+    private final double size;
 
     EmberHatchSize(double size) {
         this.size = size;
@@ -25,6 +29,6 @@ public enum EmberHatchSize implements IStringSerializable {
 
     @Override
     public String getName() {
-        return this.name().toLowerCase();
+        return this.name().toLowerCase(Locale.ENGLISH);
     }
 }

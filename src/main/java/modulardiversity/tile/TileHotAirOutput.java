@@ -40,7 +40,7 @@ public class TileHotAirOutput extends TileEntityHotAir implements ITickable {
 	@Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponents.HotAirHatch(MachineComponent.IOType.OUTPUT) {
+        return new MachineComponents.HotAirHatch(IOType.OUTPUT) {
             @Override
             public ICraftingResourceHolder<RequirementHotAir.ResourceToken> getContainerProvider() {
                 return TileHotAirOutput.this;

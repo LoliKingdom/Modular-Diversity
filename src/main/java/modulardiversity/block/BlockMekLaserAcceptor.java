@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class BlockMekLaserAcceptor extends BlockMachineComponent {
+
     public BlockMekLaserAcceptor() {
         super(Material.IRON);
         setHardness(2F);
@@ -28,19 +29,22 @@ public class BlockMekLaserAcceptor extends BlockMachineComponent {
         setCreativeTab(CommonProxy.creativeTabModularMachinery);
     }
 
-    //Debug Code
-    //When the player right clicks sends a message to chat with the energy
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             TileEntity te = worldIn.getTileEntity(pos);
-            if (te != null && te instanceof TileEntityMekLaserAcceptor) {
-                double energy = ((TileEntityMekLaserAcceptor)te).getEnergy() / 1000;
-                String e = (energy < 1000) ? Double.toString(energy) + "kJ" : (energy < 1000000) ? Double.toString(energy/1000) + "MJ" : Double.toString(energy/1000000) + "GJ";
-                playerIn.sendStatusMessage(new TextComponentString("Current Energy: " + e), false);
+            if (te instanceof TileEntityMekLaserAcceptor) {
+                double energy = ((TileEntityMekLaserAcceptor) te).getEnergy() / 1000;
+                String e = (energy < 1000) ? energy + "kJ" : (energy < 1000000) ? energy / 1000 + "MJ" : energy / 1000000 + "GJ";
+                playerIn.sendStatusMessage(new TextComponentString("Energy: " + e), false);
             }
         }
         return true;
+    }
+
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
     }
 
     @Override
@@ -50,23 +54,8 @@ public class BlockMekLaserAcceptor extends BlockMachineComponent {
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityMekLaserAcceptor();
-    }
-
-    @Nullable
-    @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityMekLaserAcceptor();
     }
 
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
-
-    @Override
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
 }

@@ -24,7 +24,7 @@ public class ComponentMechanical extends ComponentType<RequirementMechanical> {
 
     @Nonnull
     @Override
-    public RequirementMechanical provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementMechanical provideComponent(IOType ioType, JsonObject requirement) {
         if(requirement.has("level") && requirement.get("level").isJsonPrimitive() && requirement.get("level").getAsJsonPrimitive().isNumber()) {
             int powerLevel = requirement.getAsJsonPrimitive("level").getAsInt();
             boolean crankAllowed = requirement.has("crank_allowed") && requirement.getAsJsonPrimitive("crank_allowed").getAsBoolean();

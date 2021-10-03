@@ -17,7 +17,7 @@ public class TileEntityMekHeatOutput extends TileEntityMekHeat {
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponents.MekHeatHatch(MachineComponent.IOType.OUTPUT) {
+        return new MachineComponents.MekHeatHatch(IOType.OUTPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMekHeat.ResourceToken> getContainerProvider() {
                 return TileEntityMekHeatOutput.this;

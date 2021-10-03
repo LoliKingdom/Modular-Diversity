@@ -25,7 +25,7 @@ public class ComponentEmberWorld extends ComponentType<RequirementEmberWorld> {
 
     @Nonnull
     @Override
-    public RequirementEmberWorld provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementEmberWorld provideComponent(IOType ioType, JsonObject requirement) {
 
             float emberMin = JsonUtil.get(requirement,"emberMin",0f);
             float emberMax = JsonUtil.get(requirement,"emberMax", Float.MAX_VALUE);

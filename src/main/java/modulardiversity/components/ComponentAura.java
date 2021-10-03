@@ -26,7 +26,7 @@ public class ComponentAura extends ComponentType<RequirementAura> {
 
     @Nonnull
     @Override
-    public RequirementAura provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementAura provideComponent(IOType ioType, JsonObject requirement) {
 
             float visMin = JsonUtil.get(requirement,"visMin",0f);
             float visMax = JsonUtil.get(requirement,"visMax", Float.MAX_VALUE);

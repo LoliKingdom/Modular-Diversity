@@ -23,7 +23,7 @@ public class RequirementPosition extends RequirementEnvironmental<Position, Requ
     public float distanceMin, distanceMax;
     public AnchorType anchor;
 
-    public RequirementPosition(MachineComponent.IOType actionType, float xMin, float xMax, float yMin, float yMax, float zMin, float zMax, float distanceMin, float distanceMax, AnchorType anchor) {
+    public RequirementPosition(IOType actionType, float xMin, float xMax, float yMin, float yMax, float zMin, float zMax, float distanceMin, float distanceMax, AnchorType anchor) {
         super(ComponentType.Registry.getComponent("position"), actionType);
         this.xMin = xMin;
         this.xMax = xMax;
@@ -117,7 +117,7 @@ public class RequirementPosition extends RequirementEnvironmental<Position, Requ
         }
 
         @Override
-        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
         }
 
         @Override

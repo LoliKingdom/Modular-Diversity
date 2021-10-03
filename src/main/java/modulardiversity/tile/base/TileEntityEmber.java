@@ -1,23 +1,16 @@
 package modulardiversity.tile.base;
 
-import hellfirepvp.modularmachinery.common.crafting.ComponentType;
-import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
 import modulardiversity.block.prop.EmberHatchSize;
 import modulardiversity.components.requirements.RequirementEmber;
-import modulardiversity.components.requirements.RequirementMana;
 import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
-import teamroots.embers.api.EmbersAPI;
 import teamroots.embers.api.capabilities.EmbersCapabilities;
 import teamroots.embers.power.DefaultEmberCapability;
-import teamroots.embers.power.EmberCapabilityProvider;
-
-import javax.annotation.Nullable;
 
 public abstract class TileEntityEmber extends TileColorableMachineComponent implements MachineComponentTile, ICraftingResourceHolder<RequirementEmber.ResourceToken> {
     public DefaultEmberCapability capability = new DefaultEmberCapability();

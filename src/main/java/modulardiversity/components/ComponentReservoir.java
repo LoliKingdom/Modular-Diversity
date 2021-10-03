@@ -25,7 +25,7 @@ public class ComponentReservoir extends ComponentType<RequirementReservoir> {
 
     @Nonnull
     @Override
-    public RequirementReservoir provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementReservoir provideComponent(IOType ioType, JsonObject requirement) {
         if (requirement.has("name")) {
             String name = JsonUtil.get(requirement,"name",null);
             int fluidMin = JsonUtil.get(requirement,"fluidMin",0);

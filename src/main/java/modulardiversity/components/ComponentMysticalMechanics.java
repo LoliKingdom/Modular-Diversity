@@ -26,13 +26,13 @@ public class ComponentMysticalMechanics extends ComponentType<RequirementMystica
 
     @Nonnull
     @Override
-    public RequirementMysticalMechanics provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
-        if(ioType == MachineComponent.IOType.INPUT) {
+    public RequirementMysticalMechanics provideComponent(IOType ioType, JsonObject requirement) {
+        if(ioType == IOType.INPUT) {
             double levelRequiredMin = requirement.has("levelRequiredMin") ? requirement.getAsJsonPrimitive("levelRequiredMin").getAsDouble() : 0;
             double levelRequiredMax = requirement.has("levelRequiredMax") ? requirement.getAsJsonPrimitive("levelRequiredMax").getAsDouble() : Double.POSITIVE_INFINITY;
             return new RequirementMysticalMechanics(ioType, levelRequiredMin, levelRequiredMax);
         }
-        else if(ioType == MachineComponent.IOType.OUTPUT) {
+        else if(ioType == IOType.OUTPUT) {
             double levelOutput = requirement.has("level") ? requirement.getAsJsonPrimitive("level").getAsDouble() : 0;
             int time = requirement.has("time") ? requirement.getAsJsonPrimitive("time").getAsInt() : 5;
             return new RequirementMysticalMechanics(ioType, levelOutput, time);

@@ -25,7 +25,7 @@ public class RequirementAura extends RequirementEnvironmental<Aura, RequirementA
     public float vis;
     public float flux;
 
-    public RequirementAura(MachineComponent.IOType actionType, float visMin, float visMax, float fluxMin, float fluxMax, float vis, float flux) {
+    public RequirementAura(IOType actionType, float visMin, float visMax, float fluxMin, float fluxMax, float vis, float flux) {
         super(ComponentType.Registry.getComponent("vis"), actionType);
         this.visMin = visMin;
         this.visMax = visMax;
@@ -143,7 +143,7 @@ public class RequirementAura extends RequirementEnvironmental<Aura, RequirementA
         }
 
         @Override
-        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
             visMin = Misc.applyModifiers(modifiers,"vis_min",ioType, visMin,false);
             visMax = Misc.applyModifiers(modifiers,"vis_max",ioType, visMax,false);
             fluxMin = Misc.applyModifiers(modifiers,"flux_min",ioType, fluxMin,false);

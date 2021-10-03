@@ -24,7 +24,7 @@ public class ComponentLaser extends ComponentType<RequirementLaser> {
 
     @Nonnull
     @Override
-    public RequirementLaser provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementLaser provideComponent(IOType ioType, JsonObject requirement) {
         if(requirement.has("micro-mj") && requirement.get("micro-mj").isJsonPrimitive() && requirement.get("micro-mj").getAsJsonPrimitive().isNumber()) {
             long mjRequired = requirement.getAsJsonPrimitive("micro-mj").getAsLong();
             return new RequirementLaser(ioType, mjRequired);

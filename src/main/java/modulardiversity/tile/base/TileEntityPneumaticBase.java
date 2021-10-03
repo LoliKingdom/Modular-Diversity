@@ -1,5 +1,6 @@
 package modulardiversity.tile.base;
 
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
@@ -17,13 +18,13 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public abstract class TileEntityPneumaticBase extends TileColorableMachineComponent implements MachineComponentTile, ICraftingResourceHolder<RequirementMysticalMechanics.ResourceToken>, IPneumaticMachine, ITickable {
-    private MachineComponent.IOType ioType;
+    private IOType ioType;
 
     public IAirHandler airHandler;
     public int tier;
     public int volume;
 
-    public TileEntityPneumaticBase(MachineComponent.IOType ioType, int tier, int volume) {
+    public TileEntityPneumaticBase(IOType ioType, int tier, int volume) {
         this.ioType = ioType;
         this.tier = tier;
         this.volume = volume;

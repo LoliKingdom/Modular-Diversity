@@ -33,7 +33,7 @@ public class JEIComponentMysticalMechanics extends ComponentRequirement.JEICompo
     @Override
     public List<MysticalMechanics> getJEIIORequirements() {
         MysticalMechanics mysticalMechanics;
-        if(requirement.getActionType() == MachineComponent.IOType.INPUT) {
+        if(requirement.getActionType() == IOType.INPUT) {
             mysticalMechanics = new MysticalMechanics(requirement.getRequiredLevelMin(), requirement.getRequiredLevelMax());
         } else {
             mysticalMechanics = new MysticalMechanics(requirement.getLevelOutput());

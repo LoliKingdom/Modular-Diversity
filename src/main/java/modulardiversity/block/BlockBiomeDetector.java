@@ -9,7 +9,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -30,14 +29,11 @@ public class BlockBiomeDetector extends BlockMachineComponent {
         setCreativeTab(CommonProxy.creativeTabModularMachinery);
     }
 
-    //Debug Code
-    //When the player right clicks sends a message to chat with the biome
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        Biome biome = worldIn.getBiome(pos);
-        if (!worldIn.isRemote) {
-            playerIn.sendStatusMessage(new TextComponentString("Current Biome: " + biome.getBiomeName() + " (" + Biome.getIdForBiome(biome) + ")"), false);
-            worldIn.getVillageCollection();
+        if (worldIn.isRemote) {
+            Biome biome = worldIn.getBiome(pos);
+            playerIn.sendStatusMessage(new TextComponentString("Biome: " + biome.getBiomeName() + " (" + Biome.getIdForBiome(biome) + ")"), false);
         }
         return true;
     }
@@ -49,25 +45,12 @@ public class BlockBiomeDetector extends BlockMachineComponent {
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-//        System.out.println("CNTE w + m");
-        return new TileEntityBiomeDetector();
-    }
-
-    @Nullable
-    @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-//        System.out.println("CTE");
         return new TileEntityBiomeDetector();
     }
 
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
-
-    @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 }

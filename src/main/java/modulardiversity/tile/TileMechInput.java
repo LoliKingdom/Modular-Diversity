@@ -52,7 +52,7 @@ public class TileMechInput extends TileEntityMech {
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponents.MechanicalHatch(MachineComponent.IOType.INPUT) {
+        return new MachineComponents.MechanicalHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMechanical.ResourceToken> getContainerProvider() {
                 return TileMechInput.this;

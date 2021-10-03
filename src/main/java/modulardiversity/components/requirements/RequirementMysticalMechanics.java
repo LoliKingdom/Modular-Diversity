@@ -19,15 +19,15 @@ public class RequirementMysticalMechanics extends RequirementConsumePerTick<Myst
     private double levelOutput;
     private int time;
 
-    public RequirementMysticalMechanics(MachineComponent.IOType actionType, double requiredLevelMin, double requiredLevelMax) {
+    public RequirementMysticalMechanics(IOType actionType, double requiredLevelMin, double requiredLevelMax) {
         this(actionType,requiredLevelMin,requiredLevelMax,0,0);
     }
 
-    public RequirementMysticalMechanics(MachineComponent.IOType actionType, double levelOutput, int time) {
+    public RequirementMysticalMechanics(IOType actionType, double levelOutput, int time) {
         this(actionType,0,0,levelOutput,time);
     }
 
-    public RequirementMysticalMechanics(MachineComponent.IOType actionType, double requiredLevelMin, double requiredLevelMax, double levelOutput, int time) {
+    public RequirementMysticalMechanics(IOType actionType, double requiredLevelMin, double requiredLevelMax, double levelOutput, int time) {
         super(ComponentType.Registry.getComponent("mysticalmechanics"), actionType);
         this.requiredLevelMin = requiredLevelMin;
         this.requiredLevelMax = requiredLevelMax;
@@ -116,7 +116,7 @@ public class RequirementMysticalMechanics extends RequirementConsumePerTick<Myst
         }
 
         @Override
-        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
             requiredLevelMin = Misc.applyModifiers(modifiers,"mysticalmechanics_min",ioType, requiredLevelMin,false);
             requiredLevelMax = Misc.applyModifiers(modifiers,"mysticalmechanics_max",ioType, requiredLevelMax,false);
             levelOutput = Misc.applyModifiers(modifiers,"mysticalmechanics",ioType, levelOutput,false);

@@ -20,7 +20,7 @@ public class TileEmberOutputHatch extends TileEntityEmber {
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponents.EmberHatch(MachineComponent.IOType.OUTPUT) {
+        return new MachineComponents.EmberHatch(IOType.OUTPUT) {
             @Override
             public ICraftingResourceHolder<RequirementEmber.ResourceToken> getContainerProvider() {
                 return TileEmberOutputHatch.this;

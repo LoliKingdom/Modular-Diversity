@@ -32,7 +32,7 @@ public class TileManaInputHatch extends TileEntityMana {
     @Override
     @Nullable
     public MachineComponent provideComponent() {
-        return new MachineComponents.ManaHatch(MachineComponent.IOType.INPUT) {
+        return new MachineComponents.ManaHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMana.ResourceToken> getContainerProvider() {
                 return TileManaInputHatch.this;

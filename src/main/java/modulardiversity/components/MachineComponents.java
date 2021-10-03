@@ -2,6 +2,7 @@ package modulardiversity.components;
 
 import betterwithmods.api.tile.IMechanicalPower;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import me.desht.pneumaticcraft.api.tileentity.IAirHandler;
 import modulardiversity.components.requirements.*;

@@ -29,7 +29,7 @@ public class RequirementDaylight extends RequirementEnvironmental<Daylight,Requi
             return timeMin >= timeMax;
     }
 
-    public RequirementDaylight(MachineComponent.IOType actionType, long min, long max, long modulo, boolean local) {
+    public RequirementDaylight(IOType actionType, long min, long max, long modulo, boolean local) {
         super(Registry.getComponent("daylight"), actionType);
         timeMin = min;
         timeMax = max;
@@ -148,7 +148,7 @@ public class RequirementDaylight extends RequirementEnvironmental<Daylight,Requi
         }
 
         @Override
-        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
 
         }
 

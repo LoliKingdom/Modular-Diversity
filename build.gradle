@@ -11,13 +11,11 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath 'com.wynprice.cursemaven:CurseMaven:1.2.3'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'com.wynprice.cursemaven'
 
-version = "1.10"
+version = "1.11"
 group= "modulardiversity" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Modular Diversity"
 
@@ -25,26 +23,34 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {
-    version = "1.12.2-14.23.5.2781"
+    version = "1.12.2-14.23.5.2847"
     runDir = "run"
-    mappings = "snapshot_20171125"
+    mappings = "stable_39"
     useDepAts = true
 }
 
 repositories {
+    maven { url "https://www.cursemaven.com" }
     maven { url "http://dvs1.progwml6.com/files/maven" }
 	maven { url "http://www.ryanliptak.com/maven/" }
     maven { url "http://maven.blamejared.com" }
     maven { url "https://modmaven.k-4u.nl" }
-    maven { url "https://maven.hellfiredev.net"}
+    maven { url "https://maven.hellfiredev.net" }
+    maven { url "https://mod-buildcraft.com/maven" }
 }
 
 dependencies {
-    deobfCompile curse.resolveUrl("https://www.curseforge.com/minecraft/mc-mods/mysticalmechanics/files/2869691")
 	deobfCompile "mezz.jei:jei_1.12.2:4.14.4.267"
-    deobfCompile "vazkii.botania:Botania:r1.10-355.4" //should this be deobfProvided?
     deobfCompile "me.desht.pneumaticcraft:pneumaticcraft-repressurized:1.12.2-0.9.1-317"
-    deobfCompile "hellfirepvp.modularmachinery:modularmachinery:1.12.2-1.11.0-v50"
+    deobfCompile "hellfirepvp.modularmachinery:modularmachinery:1.12.2-1.11.1-v53"
+	deobfCompile "curse.maven:mysticalmechanics-300742:3006392"
+    deobfCompile "betterwithmods:BetterWithMods:1.12-2.3.20-1030"
+    deobfCompile "curse.maven:embers-rekindled-300777:3225431"
+    deobfCompile "blusunrize:ImmersiveEngineering:0.12-92-+"
+    deobfCompile "curse.maven:immersive-petroleum-268250:3382321"
+    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.662"
+    deobfCompile "curse.maven:mekanism-268560:2835175"
+    deobfCompile "com.mod-buildcraft:buildcraft:7.99.12"
 }
 
 task deobfJar(type: Jar) {

@@ -34,7 +34,7 @@ public class TileMysticalMechanicsInput extends TileEntityMysticalMechanics {
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponents.MysticalMechanicsHatch(MachineComponent.IOType.INPUT) {
+        return new MachineComponents.MysticalMechanicsHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMysticalMechanics.ResourceToken> getContainerProvider() {
                 return TileMysticalMechanicsInput.this;

@@ -6,8 +6,6 @@ import hellfirepvp.modularmachinery.common.block.BlockMachineComponent;
 import hellfirepvp.modularmachinery.common.block.BlockVariants;
 import modulardiversity.block.prop.EmberHatchSize;
 import modulardiversity.tile.TileEmberInputHatch;
-import modulardiversity.tile.TileEmberOutputHatch;
-import modulardiversity.tile.base.TileEntityEmber;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -17,13 +15,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.LinkedList;
-import java.util.List;
 
 public class BlockEmberInputHatch extends BlockMachineComponent implements BlockVariants, BlockCustomName {
     public static final PropertyEnum<EmberHatchSize> BUS_TYPE = PropertyEnum.create("size", EmberHatchSize.class);
@@ -39,7 +34,7 @@ public class BlockEmberInputHatch extends BlockMachineComponent implements Block
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        for (EmberHatchSize size : EmberHatchSize.values()) {
+        for (EmberHatchSize size : EmberHatchSize.VALUES) {
             items.add(new ItemStack(this, 1, size.ordinal()));
         }
     }
@@ -51,7 +46,7 @@ public class BlockEmberInputHatch extends BlockMachineComponent implements Block
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(BUS_TYPE, EmberHatchSize.values()[meta]);
+        return getDefaultState().withProperty(BUS_TYPE, EmberHatchSize.VALUES[meta]);
     }
 
     @Override
@@ -64,14 +59,8 @@ public class BlockEmberInputHatch extends BlockMachineComponent implements Block
         return new BlockStateContainer(this, BUS_TYPE);
     }
 
-
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
-
-    @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
@@ -86,12 +75,6 @@ public class BlockEmberInputHatch extends BlockMachineComponent implements Block
         return new TileEmberInputHatch(state.getValue(BUS_TYPE));
     }
 
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return null;
-    }
-
     @Override
     public String getIdentifierForMeta(int meta) {
         return getStateFromMeta(meta).getValue(BUS_TYPE).getName();
@@ -99,15 +82,11 @@ public class BlockEmberInputHatch extends BlockMachineComponent implements Block
 
     @Override
     public Iterable<IBlockState> getValidStates() {
-        List<IBlockState> ret = new LinkedList<>();
-        for (EmberHatchSize type : EmberHatchSize.values()) {
-            ret.add(getDefaultState().withProperty(BUS_TYPE, type));
-        }
-        return ret;
+        return blockState.getValidStates();
     }
 
     @Override
     public String getBlockStateName(IBlockState state) {
-        return "size="+state.getValue(BUS_TYPE).getName();
+        return "size=" + state.getValue(BUS_TYPE).getName();
     }
 }

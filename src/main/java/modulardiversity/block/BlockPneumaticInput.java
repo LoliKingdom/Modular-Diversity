@@ -9,9 +9,11 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class BlockPneumaticInput extends BlockPneumatic {
+
     @Nullable
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TilePneumaticInput(state.getValue(TIER),1000);
+        return new TilePneumaticInput(state.getValue(TIER), 1000);
     }
+
 }

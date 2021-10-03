@@ -52,7 +52,7 @@ public class TileHotAirInput extends TileEntityHotAir {
 	@Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponents.HotAirHatch(MachineComponent.IOType.INPUT) {
+        return new MachineComponents.HotAirHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementHotAir.ResourceToken> getContainerProvider() {
                 return TileHotAirInput.this;

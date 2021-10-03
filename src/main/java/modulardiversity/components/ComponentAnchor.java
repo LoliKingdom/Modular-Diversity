@@ -25,7 +25,7 @@ public class ComponentAnchor extends ComponentType<RequirementAnchor> {
 
     @Nonnull
     @Override
-    public RequirementAnchor provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementAnchor provideComponent(IOType ioType, JsonObject requirement) {
         String name = JsonUtil.get(requirement,"identifier", "");
         int time = JsonUtil.get(requirement,"time",1);
 

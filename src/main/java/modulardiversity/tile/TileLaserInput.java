@@ -60,7 +60,7 @@ public class TileLaserInput extends TileColorableMachineComponent implements Mac
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponents.LaserHatch(MachineComponent.IOType.INPUT) {
+        return new MachineComponents.LaserHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementLaser.ResourceToken> getContainerProvider() {
                 return TileLaserInput.this;

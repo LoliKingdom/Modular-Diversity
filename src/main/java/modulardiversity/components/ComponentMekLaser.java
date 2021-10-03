@@ -25,7 +25,7 @@ public class ComponentMekLaser extends ComponentType<RequirementMekLaser> {
 
     @Nonnull
     @Override
-    public RequirementMekLaser provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementMekLaser provideComponent(IOType ioType, JsonObject requirement) {
         if(requirement.has("energy") && requirement.get("energy").isJsonPrimitive() && requirement.get("energy").getAsJsonPrimitive().isNumber()) {
             double energyRequired = requirement.getAsJsonPrimitive("energy").getAsDouble();
             return new RequirementMekLaser(ioType, energyRequired);

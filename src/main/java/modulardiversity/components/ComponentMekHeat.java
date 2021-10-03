@@ -25,11 +25,11 @@ public class ComponentMekHeat extends ComponentType<RequirementMekHeat> {
 
     @Nonnull
     @Override
-    public RequirementMekHeat provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementMekHeat provideComponent(IOType ioType, JsonObject requirement) {
         return provideComponentInternal(ioType, requirement);
     }
 
-    private RequirementMekHeat provideComponentInternal(MachineComponent.IOType ioType, JsonObject requirement) {
+    private RequirementMekHeat provideComponentInternal(IOType ioType, JsonObject requirement) {
         double temperatureRequiredMin = requirement.has("temperatureRequiredMin") ? requirement.getAsJsonPrimitive("temperatureRequiredMin").getAsDouble() : 0;
         double temperatureRequiredMax = requirement.has("temperatureRequiredMax") ? requirement.getAsJsonPrimitive("temperatureRequiredMax").getAsDouble() : Double.POSITIVE_INFINITY;
         double temperature = requirement.has("temperature") ? requirement.getAsJsonPrimitive("temperature").getAsDouble() : 0;

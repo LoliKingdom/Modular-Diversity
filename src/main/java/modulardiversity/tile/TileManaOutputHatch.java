@@ -44,7 +44,7 @@ public class TileManaOutputHatch extends TileEntityMana implements IManaPool {
     @Override
     @Nullable
     public MachineComponent provideComponent() {
-        return new MachineComponents.ManaHatch(MachineComponent.IOType.OUTPUT) {
+        return new MachineComponents.ManaHatch(IOType.OUTPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMana.ResourceToken> getContainerProvider() {
                 return TileManaOutputHatch.this;

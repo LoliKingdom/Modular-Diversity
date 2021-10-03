@@ -3,7 +3,6 @@ package modulardiversity.block;
 import hellfirepvp.modularmachinery.common.CommonProxy;
 import hellfirepvp.modularmachinery.common.block.BlockMachineComponent;
 import hellfirepvp.modularmachinery.common.block.BlockVariants;
-import modulardiversity.jei.ingredients.Weather;
 import modulardiversity.tile.TileEntityWeatherDetector;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,14 +14,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.LinkedList;
-import java.util.List;
 
+// TODO - make this class a lot less shitty.
 public class BlockWeatherDetector extends BlockMachineComponent implements BlockVariants {
+
     public static final PropertyInteger WEATHER_TYPE = PropertyInteger.create("weather", 0, 2);
 
     public BlockWeatherDetector() {
@@ -45,16 +43,14 @@ public class BlockWeatherDetector extends BlockMachineComponent implements Block
         return true;
     }
 
-//    @Override
-//    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-//        int weather = (worldIn.isRaining()) ? (worldIn.isThundering()) ? 2 : 1 : 0;
-//        worldIn.setBlockState(pos, getDefaultState().withProperty(WEATHER_TYPE, weather));
-//    }
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return getDefaultState().withProperty(WEATHER_TYPE, (worldIn.isRaining()) ? (worldIn.isThundering()) ? 2 : 1 : 0);
+    }
 
     @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return getDefaultState().withProperty(WEATHER_TYPE, (worldIn.isRaining()) ? (worldIn.isThundering()) ? 2 : 1 : 0);
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
     }
 
     @Override
@@ -64,24 +60,8 @@ public class BlockWeatherDetector extends BlockMachineComponent implements Block
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityWeatherDetector();
-    }
-
-    @Nullable
-    @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityWeatherDetector();
-    }
-
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
-
-    @Override
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.CUTOUT;
     }
 
     @Override
@@ -106,15 +86,11 @@ public class BlockWeatherDetector extends BlockMachineComponent implements Block
 
     @Override
     public Iterable<IBlockState> getValidStates() {
-        List<IBlockState> ret = new LinkedList<>();
-        ret.add(getDefaultState().withProperty(WEATHER_TYPE, 0));
-        ret.add(getDefaultState().withProperty(WEATHER_TYPE, 1));
-        ret.add(getDefaultState().withProperty(WEATHER_TYPE, 2));
-        return ret;
+        return blockState.getValidStates();
     }
 
     @Override
     public String getBlockStateName(IBlockState state) {
-        return "weather="+state.getValue(WEATHER_TYPE);
+        return "weather=" + state.getValue(WEATHER_TYPE);
     }
 }

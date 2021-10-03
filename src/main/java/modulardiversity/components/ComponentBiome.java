@@ -28,7 +28,7 @@ public class ComponentBiome extends ComponentType<RequirementBiome> {
 
     @Nonnull
     @Override
-    public RequirementBiome provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementBiome provideComponent(IOType ioType, JsonObject requirement) {
         //TODO: clean up busted english or just yeet the error messages and "hardcrash" instead
         if (requirement.has("biome") && requirement.get("biome").isJsonPrimitive() && requirement.get("biome").getAsJsonPrimitive().isString()) {
             String biome = requirement.getAsJsonPrimitive("biome").getAsString();

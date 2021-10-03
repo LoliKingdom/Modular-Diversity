@@ -9,7 +9,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 
@@ -17,6 +16,7 @@ import javax.annotation.Nullable;
 
 @Optional.Interface(iface = "buildcraft.api.mj.ILaserTargetBlock",modid = "buildcraftlib")
 public class BlockLaserHatch extends BlockMachineComponent implements ILaserTargetBlock {
+
     public BlockLaserHatch() {
         super(Material.IRON);
         setHardness(2F);
@@ -27,12 +27,7 @@ public class BlockLaserHatch extends BlockMachineComponent implements ILaserTarg
     }
 
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
-
-    @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
@@ -47,9 +42,4 @@ public class BlockLaserHatch extends BlockMachineComponent implements ILaserTarg
         return new TileLaserInput();
     }
 
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return null;
-    }
 }

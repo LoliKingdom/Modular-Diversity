@@ -77,7 +77,7 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
     }
 
     public void updateNearby() {
-        for (EnumFacing f : EnumFacing.values()) {
+        for (EnumFacing f : EnumFacing.VALUES) {
             TileEntity t = world.getTileEntity(getPos().offset(f));
             if (t != null) {
                 if (t.hasCapability(MysticalMechanicsAPI.MECH_CAPABILITY, f.getOpposite())) {
@@ -101,7 +101,7 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponents.MysticalMechanicsHatch(MachineComponent.IOType.OUTPUT) {
+        return new MachineComponents.MysticalMechanicsHatch(IOType.OUTPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMysticalMechanics.ResourceToken> getContainerProvider() {
                 return TileMysticalMechanicsOutput.this;

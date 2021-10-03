@@ -26,7 +26,7 @@ public class ComponentModifier extends ComponentType<RequirementModifier> {
 
     @Nonnull
     @Override
-    public RequirementModifier provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementModifier provideComponent(IOType ioType, JsonObject requirement) {
         if (requirement.has("name") && requirement.has("min") || requirement.has("max")) {
             String name = JsonUtil.get(requirement,"name",null);
             float min = JsonUtil.get(requirement,"min",Float.NEGATIVE_INFINITY);

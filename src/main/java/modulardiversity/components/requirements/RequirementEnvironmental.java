@@ -20,7 +20,7 @@ public abstract class RequirementEnvironmental<T, V extends IResourceToken> exte
 
     boolean perTick;
 
-    public RequirementEnvironmental(ComponentType componentType, MachineComponent.IOType actionType) {
+    public RequirementEnvironmental(ComponentType componentType, IOType actionType) {
         super(componentType, actionType);
     }
 
@@ -122,7 +122,7 @@ public abstract class RequirementEnvironmental<T, V extends IResourceToken> exte
         this.perTickToken = emitConsumptionToken(context);
         if(enough)
             return CraftCheck.success();
-        else if(getActionType() == MachineComponent.IOType.INPUT)
+        else if(getActionType() == IOType.INPUT)
             return CraftCheck.failure(getMissingInput());
         else
             return CraftCheck.failure(getMissingOutput());

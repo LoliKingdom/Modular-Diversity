@@ -20,7 +20,7 @@ public class RequirementAnchor extends RequirementEnvironmental<Anchor, Requirem
     public String name;
     public int time;
 
-    public RequirementAnchor(MachineComponent.IOType actionType, String name, int time) {
+    public RequirementAnchor(IOType actionType, String name, int time) {
         super(ComponentType.Registry.getComponent("anchor"), actionType);
         this.name = name;
         this.time = time;
@@ -85,7 +85,7 @@ public class RequirementAnchor extends RequirementEnvironmental<Anchor, Requirem
     public static class ResourceToken implements IResourceToken
     {
         @Override
-        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
 
         }
 
