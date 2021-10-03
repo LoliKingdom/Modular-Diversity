@@ -13,12 +13,12 @@ import javax.annotation.Nullable;
 
 public class TilePneumaticOutput extends TileEntityPneumaticBase {
     public TilePneumaticOutput(int tier, int volume) {
-        super(IOType.OUTPUT, tier, volume);
+        super(tier, volume);
     }
 
     @Nullable
     @Override
-    public MachineComponent provideComponent() {
+    public MachineComponent<ICraftingResourceHolder<RequirementAir.ResourceToken>> provideComponent() {
         return new MachineComponents.AirHatch(IOType.OUTPUT) {
             @Override
             public ICraftingResourceHolder<RequirementAir.ResourceToken> getContainerProvider() {

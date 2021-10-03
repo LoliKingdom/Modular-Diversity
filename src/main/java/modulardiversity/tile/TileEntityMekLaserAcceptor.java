@@ -1,5 +1,6 @@
 package modulardiversity.tile;
 
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.components.requirements.RequirementMekLaser;
@@ -10,20 +11,15 @@ import javax.annotation.Nullable;
 
 public class TileEntityMekLaserAcceptor extends TileEntityMekLaser {
 
-    public TileEntityMekLaserAcceptor() {
-        super();
-    }
-
     @Nullable
     @Override
-    public MachineComponent provideComponent() {
+    public MachineComponent<ICraftingResourceHolder<RequirementMekLaser.ResourceToken>> provideComponent() {
         return new MachineComponents.MekLaserAcceptor(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMekLaser.ResourceToken> getContainerProvider() {
                 return TileEntityMekLaserAcceptor.this;
             }
         };
-
     }
 
     @Override

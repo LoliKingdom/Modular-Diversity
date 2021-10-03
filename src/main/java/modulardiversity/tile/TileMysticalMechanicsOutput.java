@@ -1,5 +1,6 @@
 package modulardiversity.tile;
 
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.components.requirements.RequirementMysticalMechanics;
@@ -29,8 +30,8 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
         return new DefaultMechCapability() {
             @Override
             public void setPower(double value, EnumFacing from) {
-                if(from == null) {
-                    super.setPower(value, from);
+                if (from == null) {
+                    super.setPower(value, null);
                 }
             }
 
@@ -60,17 +61,15 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
 
     @Override
     public boolean generate(RequirementMysticalMechanics.ResourceToken token, boolean doGenerate) {
-        if(doGenerate && !broken) {
+        if (doGenerate && !broken) {
             capability.setPower(token.getLevelOutput(),null);
             keepPowerTicks = token.getTime();
         }
-
         token.setRequiredlevelMet();
-
         return true;
     }
 
-    public void breakBlock(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+    public void breakBlock() {
         broken = true;
         this.capability.setPower(0.0D, null);
         updateNearby();
@@ -80,8 +79,9 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
         for (EnumFacing f : EnumFacing.VALUES) {
             TileEntity t = world.getTileEntity(getPos().offset(f));
             if (t != null) {
-                if (t.hasCapability(MysticalMechanicsAPI.MECH_CAPABILITY, f.getOpposite())) {
-                    t.getCapability(MysticalMechanicsAPI.MECH_CAPABILITY, f.getOpposite()).setPower(capability.getPower(f), f.getOpposite());
+                IMechCapability capability = t.getCapability(MysticalMechanicsAPI.MECH_CAPABILITY, f.getOpposite());
+                if (capability != null) {
+                    capability.setPower(capability.getPower(f), f.getOpposite());
                     t.markDirty();
                 }
             }
@@ -90,7 +90,7 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
 
     @Override
     public void update() {
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             keepPowerTicks = Math.max(0, keepPowerTicks - 1);
             if (keepPowerTicks <= 0 && capability.getPower(null) > 0) {
                 capability.setPower(0, null);
@@ -100,7 +100,7 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
 
     @Nullable
     @Override
-    public MachineComponent provideComponent() {
+    public MachineComponent<ICraftingResourceHolder<RequirementMysticalMechanics.ResourceToken>> provideComponent() {
         return new MachineComponents.MysticalMechanicsHatch(IOType.OUTPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMysticalMechanics.ResourceToken> getContainerProvider() {

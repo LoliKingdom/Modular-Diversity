@@ -45,7 +45,7 @@ public class BlockMysticalMechanicsOutput extends BlockMachineComponent {
 
     public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
         TileMysticalMechanicsOutput p = (TileMysticalMechanicsOutput) world.getTileEntity(pos);
-        p.breakBlock(world, pos, state, player);
+        p.breakBlock();
     }
 
     @Nullable

@@ -14,23 +14,16 @@ public class HeatUtils {
     @CapabilityInject(IGridTransmitter.class)
     public static Capability<IGridTransmitter> GRID_TRANSMITTER_CAPABILITY = null;
 
-    public static double[] simulate(IHeatTransfer source)
-    {
-        double heatTransferred[] = new double[] {0, 0};
-
-        for(EnumFacing side : EnumFacing.VALUES)
-        {
+    public static double[] simulate(IHeatTransfer source) {
+        double[] heatTransferred = new double[] {0, 0};
+        for (EnumFacing side : EnumFacing.VALUES) {
             IHeatTransfer sink = source.getAdjacent(side);
-
-            if(sink != null)
-            {
+            if (sink != null) {
                 double invConduction = sink.getInverseConductionCoefficient() + source.getInverseConductionCoefficient();
                 double heatToTransfer = source.getTemp() / invConduction;
                 source.transferHeatTo(-heatToTransfer);
                 sink.transferHeatTo(heatToTransfer);
-
-                if(!(sink instanceof ICapabilityProvider && !(GRID_TRANSMITTER_CAPABILITY == null) && ((ICapabilityProvider) sink).hasCapability(GRID_TRANSMITTER_CAPABILITY, side.getOpposite())))
-                {
+                if (!(sink instanceof ICapabilityProvider && !(GRID_TRANSMITTER_CAPABILITY == null) && ((ICapabilityProvider) sink).hasCapability(GRID_TRANSMITTER_CAPABILITY, side.getOpposite()))) {
                     heatTransferred[0] += heatToTransfer;
                 }
 

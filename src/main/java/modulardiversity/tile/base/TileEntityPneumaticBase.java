@@ -1,7 +1,5 @@
 package modulardiversity.tile.base;
 
-import hellfirepvp.modularmachinery.common.machine.IOType;
-import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
 import me.desht.pneumaticcraft.api.PneumaticRegistry;
@@ -15,17 +13,13 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public abstract class TileEntityPneumaticBase extends TileColorableMachineComponent implements MachineComponentTile, ICraftingResourceHolder<RequirementMysticalMechanics.ResourceToken>, IPneumaticMachine, ITickable {
-    private IOType ioType;
 
     public IAirHandler airHandler;
     public int tier;
     public int volume;
 
-    public TileEntityPneumaticBase(IOType ioType, int tier, int volume) {
-        this.ioType = ioType;
+    public TileEntityPneumaticBase(int tier, int volume) {
         this.tier = tier;
         this.volume = volume;
     }
@@ -38,10 +32,10 @@ public abstract class TileEntityPneumaticBase extends TileColorableMachineCompon
 
     private IAirHandler createAirHandler() {
         IAirHandlerSupplier supplier = PneumaticRegistry.getInstance().getAirHandlerSupplier();
-        switch(tier) {
-            case(1):
+        switch (tier) {
+            case 1:
                 return supplier.createTierOneAirHandler(volume);
-            case(2):
+            case 2:
                 return supplier.createTierTwoAirHandler(volume);
         }
         return null;
@@ -77,11 +71,6 @@ public abstract class TileEntityPneumaticBase extends TileColorableMachineCompon
     @Override
     public boolean generate(RequirementMysticalMechanics.ResourceToken token, boolean doGenerate) {
         return false;
-    }
-
-    public void onNeighborChange()
-    {
-        airHandler.onNeighborChange();
     }
 
     @Override

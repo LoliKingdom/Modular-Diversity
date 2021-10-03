@@ -2,69 +2,80 @@ package modulardiversity.tile.base;
 
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
+import modulardiversity.block.BlockEmberHatch;
 import modulardiversity.block.prop.EmberHatchSize;
 import modulardiversity.components.requirements.RequirementEmber;
 import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import teamroots.embers.api.capabilities.EmbersCapabilities;
 import teamroots.embers.power.DefaultEmberCapability;
 
 public abstract class TileEntityEmber extends TileColorableMachineComponent implements MachineComponentTile, ICraftingResourceHolder<RequirementEmber.ResourceToken> {
-    public DefaultEmberCapability capability = new DefaultEmberCapability();
-    private EmberHatchSize size;
 
-    public TileEntityEmber() {
+    public final DefaultEmberCapability capability = new DefaultEmberCapability();
+
+    @Override
+    public void setWorld(World worldIn) {
+        super.setWorld(worldIn);
+        if (this.capability.getEmberCapacity() != 0.0D && this.pos != null) {
+            this.capability.setEmberCapacity(this.world.getBlockState(this.pos).getValue(BlockEmberHatch.BUS_TYPE).get());
+        }
     }
 
-    public TileEntityEmber(EmberHatchSize size) {
-        this.size = size;
-        this.capability.setEmberCapacity(size.getSize());
+    @Override
+    public void setPos(BlockPos posIn) {
+        super.setPos(posIn);
+        if (this.capability.getEmberCapacity() != 0.0D && this.world != null) {
+            this.capability.setEmberCapacity(this.world.getBlockState(this.pos).getValue(BlockEmberHatch.BUS_TYPE).get());
+        }
     }
 
     @Override
     public void readCustomNBT(NBTTagCompound compound) {
         super.readCustomNBT(compound);
-        this.size = EmberHatchSize.values()[MathHelper.clamp(compound.getInteger("size"),0,EmberHatchSize.values().length-1)];
         capability.readFromNBT(compound.getCompoundTag("ember"));
-        capability.setEmberCapacity(size.getSize());
     }
 
     @Override
     public void writeCustomNBT(NBTTagCompound compound) {
         super.writeCustomNBT(compound);
-        compound.setInteger("size", this.size.ordinal());
         NBTTagCompound emberTag = new NBTTagCompound();
         capability.writeToNBT(emberTag);
-        compound.setTag("ember",emberTag);
+        compound.setTag("ember", emberTag);
     }
 
     @Override
     public boolean consume(RequirementEmber.ResourceToken token, boolean doConsume) {
-        double emberConsumed = capability.removeAmount(token.getEmber(),false);
+        double emberConsumed = capability.removeAmount(token.getEmber(), false);
         token.setEmber(token.getEmber() - emberConsumed);
-        if(doConsume)
-            capability.removeAmount(emberConsumed,true);
+        if (doConsume) {
+            capability.removeAmount(emberConsumed, true);
+        }
         return emberConsumed > 0;
     }
 
     @Override
     public boolean generate(RequirementEmber.ResourceToken token, boolean doGenerate) {
-        double emberAdded = capability.addAmount(token.getEmber(),false);
+        double emberAdded = capability.addAmount(token.getEmber(), false);
         token.setEmber(token.getEmber() - emberAdded);
-        if(doGenerate)
-            capability.addAmount(emberAdded,true);
+        if (doGenerate) {
+            capability.addAmount(emberAdded, true);
+        }
         return emberAdded > 0;
     }
 
+    @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         return capability == EmbersCapabilities.EMBER_CAPABILITY || super.hasCapability(capability, facing);
     }
 
+    @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return capability == EmbersCapabilities.EMBER_CAPABILITY ? (T)this.capability : super.getCapability(capability, facing);
+        return capability == EmbersCapabilities.EMBER_CAPABILITY ? (T) this.capability : super.getCapability(capability, facing);
     }
 
     @Override

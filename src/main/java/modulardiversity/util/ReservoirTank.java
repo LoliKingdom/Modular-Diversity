@@ -12,6 +12,7 @@ import net.minecraftforge.fluids.FluidTank;
 import javax.annotation.Nullable;
 
 public class ReservoirTank extends HybridTank {
+
     public ReservoirTank() {
         super(Integer.MAX_VALUE);
     }
@@ -26,9 +27,9 @@ public class ReservoirTank extends HybridTank {
 
     @Nullable
     public World getWorld() {
-        if(tile != null)
+        if (tile != null) {
             return tile.getWorld();
-
+        }
         return null;
     }
 
@@ -36,16 +37,22 @@ public class ReservoirTank extends HybridTank {
     @Override
     public FluidStack getFluid() {
         int amt = getFluidAmount();
-        if(amt <= 0)
+        if (amt <= 0) {
             return null;
-        return new FluidStack(PumpjackHandler.getFluid(getWorld(),getChunkX(),getChunkZ()),amt);
+        }
+        World world = getWorld();
+        if (world != null) {
+            return new FluidStack(PumpjackHandler.getFluid(world, getChunkX(), getChunkZ()), amt);
+        }
+        return null;
     }
 
     @Override
     public int getFluidAmount() {
         World world = getWorld();
-        if(world != null)
-            return PumpjackHandler.getFluidAmount(world,getChunkX(),getChunkZ());
+        if (world != null) {
+            return PumpjackHandler.getFluidAmount(world, getChunkX(), getChunkZ());
+        }
         return 0;
     }
 
@@ -66,35 +73,25 @@ public class ReservoirTank extends HybridTank {
 
     @Nullable
     @Override
-    public FluidStack drainInternal(int maxDrain, boolean doDrain)
-    {
+    public FluidStack drainInternal(int maxDrain, boolean doDrain) {
         World world = getWorld();
-        if(world == null)
+        if (world == null) {
             return null;
-
+        }
         Fluid type = PumpjackHandler.getFluid(world,getChunkX(),getChunkZ());
         int amount = PumpjackHandler.getFluidAmount(world,getChunkX(),getChunkZ());
-
-        if (type == null || amount <= 0 || maxDrain <= 0)
-        {
+        if (type == null || amount <= 0 || maxDrain <= 0) {
             return null;
         }
-
         int drained = maxDrain;
-        if (amount < drained)
-        {
+        if (amount < drained) {
             drained = amount;
         }
-
         FluidStack stack = new FluidStack(type, drained);
-        if (doDrain)
-        {
+        if (doDrain) {
             PumpjackHandler.depleteFluid(world,getChunkX(),getChunkZ(),drained);
-
             onContentsChanged();
-
-            if (tile != null)
-            {
+            if (tile != null) {
                 FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(fluid, world, tile.getPos(), this, drained));
             }
         }

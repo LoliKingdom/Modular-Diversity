@@ -2,6 +2,7 @@ package modulardiversity.tile;
 
 import javax.annotation.Nullable;
 
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import lykrast.prodigytech.common.capability.CapabilityHotAir;
 import lykrast.prodigytech.common.capability.HotAirChangeable;
@@ -15,7 +16,7 @@ import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 
 public class TileHotAirOutput extends TileEntityHotAir implements ITickable {
-	private HotAirChangeable hotAir;
+	private final HotAirChangeable hotAir;
 	private int coolDownClock;
 	
     public TileHotAirOutput() {
@@ -32,14 +33,15 @@ public class TileHotAirOutput extends TileEntityHotAir implements ITickable {
     @Override
     public boolean generate(RequirementHotAir.ResourceToken token, boolean doGenerate) {
     	token.setRequiredTempMet();
-    	if(doGenerate)
-    		setAirTemp(token.getTemp());
+    	if (doGenerate) {
+			setAirTemp(token.getTemp());
+		}
     	return true;
     }
 
 	@Nullable
     @Override
-    public MachineComponent provideComponent() {
+    public MachineComponent<ICraftingResourceHolder<RequirementHotAir.ResourceToken>> provideComponent() {
         return new MachineComponents.HotAirHatch(IOType.OUTPUT) {
             @Override
             public ICraftingResourceHolder<RequirementHotAir.ResourceToken> getContainerProvider() {
@@ -54,18 +56,18 @@ public class TileHotAirOutput extends TileEntityHotAir implements ITickable {
 	}
 	
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
-	{
-		if(capability==CapabilityHotAir.HOT_AIR && facing == EnumFacing.UP)
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if (capability == CapabilityHotAir.HOT_AIR && facing == EnumFacing.UP) {
 			return true;
+		}
 		return super.hasCapability(capability, facing);
 	}
 	
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
-	{
-		if(capability==CapabilityHotAir.HOT_AIR && facing == EnumFacing.UP)
-			return (T)hotAir;
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if (capability == CapabilityHotAir.HOT_AIR && facing == EnumFacing.UP) {
+			return (T) hotAir;
+		}
 		return super.getCapability(capability, facing);
 	}
 	
@@ -75,13 +77,12 @@ public class TileHotAirOutput extends TileEntityHotAir implements ITickable {
 	}
 	
 	private void lowerTemp() {
-		if(getAirTemp() <= 30)
+		if (getAirTemp() <= 30) {
 			return;
-		
-		if(coolDownClock > 1)
+		}
+		if (coolDownClock > 1) {
 			coolDownClock--;
-		else
-		{
+		} else {
 			int newTemp = getAirTemp() - 1;
 			setAirTemp(newTemp);
 			hotAir.setTemperature(newTemp);
@@ -93,7 +94,7 @@ public class TileHotAirOutput extends TileEntityHotAir implements ITickable {
 		coolDownClock = 20;
 	}
 	
-	private class HotAir extends HotAirChangeable {
+	private static class HotAir extends HotAirChangeable {
 		public HotAir() {
 			super();
 		}

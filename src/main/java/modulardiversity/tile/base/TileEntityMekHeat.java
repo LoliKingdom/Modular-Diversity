@@ -3,6 +3,7 @@ package modulardiversity.tile.base;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
 import mekanism.api.IHeatTransfer;
+import mekanism.common.capabilities.Capabilities;
 import modulardiversity.components.requirements.RequirementMekHeat;
 import modulardiversity.util.HeatUtils;
 import modulardiversity.util.ICraftingResourceHolder;
@@ -10,32 +11,27 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 
 import javax.annotation.Nullable;
 
 public abstract class TileEntityMekHeat extends TileColorableMachineComponent implements MachineComponentTile, IHeatTransfer, ITickable, ICraftingResourceHolder<RequirementMekHeat.ResourceToken> {
+
     public double temperature;
     public double heatToAbsorb = 0;
 
-    @CapabilityInject(IHeatTransfer.class)
-    public static Capability<IHeatTransfer> HEAT_TRANSFER_CAPABILITY = null;
-
     @Override
-    public double getTemp()
-    {
+    public double getTemp() {
+
         return temperature;
     }
 
     @Override
-    public double getInverseConductionCoefficient()
-    {
+    public double getInverseConductionCoefficient() {
         return 5;
     }
 
     @Override
-    public double getInsulationCoefficient(EnumFacing side)
-    {
+    public double getInsulationCoefficient(EnumFacing side) {
         return 1000;
     }
 
@@ -45,8 +41,7 @@ public abstract class TileEntityMekHeat extends TileColorableMachineComponent im
     }
 
     @Override
-    public double[] simulateHeat()
-    {
+    public double[] simulateHeat() {
         return HeatUtils.simulate(this);
     }
 
@@ -54,30 +49,26 @@ public abstract class TileEntityMekHeat extends TileColorableMachineComponent im
     public double applyTemperatureChange() {
         temperature += heatToAbsorb;
         heatToAbsorb = 0;
-
         return temperature;
     }
 
     @Override
-    public boolean canConnectHeat(EnumFacing side)
-    {
+    public boolean canConnectHeat(EnumFacing side) {
         return true;
     }
 
     @Override
     public IHeatTransfer getAdjacent(EnumFacing side) {
         TileEntity adj = world.getTileEntity(pos.offset(side));
-
-        if(adj != null && adj.hasCapability(HEAT_TRANSFER_CAPABILITY, side.getOpposite())) {
-            return adj.getCapability(HEAT_TRANSFER_CAPABILITY, side.getOpposite());
+        if (adj != null && adj.hasCapability(Capabilities.HEAT_TRANSFER_CAPABILITY, side.getOpposite())) {
+            return adj.getCapability(Capabilities.HEAT_TRANSFER_CAPABILITY, side.getOpposite());
         }
-
         return null;
     }
 
     @Override
     public void update() {
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             simulateHeat();
             applyTemperatureChange();
         }
@@ -85,16 +76,15 @@ public abstract class TileEntityMekHeat extends TileColorableMachineComponent im
 
     @Override
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == HEAT_TRANSFER_CAPABILITY || super.hasCapability(capability, facing);
+        return capability == Capabilities.HEAT_TRANSFER_CAPABILITY || super.hasCapability(capability, facing);
     }
 
     @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        if(capability == HEAT_TRANSFER_CAPABILITY) {
+        if (capability == Capabilities.HEAT_TRANSFER_CAPABILITY) {
             return (T) this;
         }
-
         return super.getCapability(capability, facing);
     }
 

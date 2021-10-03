@@ -19,7 +19,6 @@ public class ModularDiversity
 
     public static boolean ImmersivePetroleumLoaded;
     public static boolean EmbersLoaded;
-    public static boolean BotaniaLoaded;
     public static boolean BuildcraftLoaded;
     public static boolean BetterWithModsLoaded;
     public static boolean PneumaticCraftLoaded;
@@ -36,9 +35,7 @@ public class ModularDiversity
     public static IProxy proxy;
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
-        BotaniaLoaded = Loader.isModLoaded("botania");
+    public void preInit(FMLPreInitializationEvent event) {
         EmbersLoaded = Loader.isModLoaded("embers");
         ImmersivePetroleumLoaded = Loader.isModLoaded("immersivepetroleum");
         BetterWithModsLoaded = Loader.isModLoaded("betterwithmods");
@@ -54,8 +51,7 @@ public class ModularDiversity
         MANA_CAPACITY = configuration.getInt("manaHatchSize","hatch", MANA_CAPACITY, 0, Integer.MAX_VALUE, "Determines size of the mana hatch.");
         MEKANISM_LASER_CAPACITY = configuration.getFloat("mekanismLaserHatchSize","hatch", MEKANISM_LASER_CAPACITY, 0, Float.MAX_VALUE, "Determines size of the mekanism laser hatch.");
 
-        if (configuration.hasChanged())
-        {
+        if (configuration.hasChanged()) {
             configuration.save();
         }
 
@@ -66,14 +62,13 @@ public class ModularDiversity
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event) {
         proxy.init();
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
+    public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit();
     }
+
 }

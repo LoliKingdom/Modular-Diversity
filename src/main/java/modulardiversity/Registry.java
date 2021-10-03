@@ -1,11 +1,9 @@
 package modulardiversity;
 
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
-import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.requirement.type.RequirementType;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponent;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponentCustomName;
-import hellfirepvp.modularmachinery.common.lib.RegistriesMM;
 import modulardiversity.block.*;
 import modulardiversity.components.*;
 import modulardiversity.components.ComponentLaser;
@@ -43,14 +41,6 @@ public class Registry {
 
             registerBlock("blockemberinputhatch",emberInputHatch, new ItemBlockMachineComponentCustomName(emberInputHatch));
             registerBlock("blockemberoutputhatch",emberOutputHatch, new ItemBlockMachineComponentCustomName(emberOutputHatch));
-        }
-
-        if(ModularDiversity.BotaniaLoaded) {
-            BlockManaInputHatch manaInputHatch = new BlockManaInputHatch();
-            BlockManaOutputHatch manaOutputHatch = new BlockManaOutputHatch();
-
-            registerBlock("blockmanainputhatch",manaInputHatch, new ItemBlockMachineComponent(manaInputHatch));
-            registerBlock("blockmanaoutputhatch",manaOutputHatch, new ItemBlockMachineComponent(manaOutputHatch));
         }
 
         if(ModularDiversity.ImmersivePetroleumLoaded) {
@@ -157,10 +147,6 @@ public class Registry {
             registerTileEntity(TileEmberInputHatch.class);
             registerTileEntity(TileEmberOutputHatch.class);
         }
-        if(ModularDiversity.BotaniaLoaded) {
-            registerTileEntity(TileManaInputHatch.class);
-            registerTileEntity(TileManaOutputHatch.class);
-        }
         if(ModularDiversity.ImmersivePetroleumLoaded) {
             registerTileEntity(TileJackHatch.class);
         }
@@ -169,7 +155,7 @@ public class Registry {
             registerTileEntity(TileMechInputCrank.class);
             registerTileEntity(TileMechOutput.class);
         }
-        if(ModularDiversity.BuildcraftLoaded) {
+        if (ModularDiversity.BuildcraftLoaded) {
             registerTileEntity(TileLaserInput.class);
         }
         if(ModularDiversity.ProdigyTechLoaded) {

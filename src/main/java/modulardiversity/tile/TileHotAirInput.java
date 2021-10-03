@@ -2,6 +2,7 @@ package modulardiversity.tile;
 
 import javax.annotation.Nullable;
 
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import lykrast.prodigytech.common.capability.CapabilityHotAir;
 import lykrast.prodigytech.common.capability.IHotAir;
@@ -14,32 +15,28 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
 public class TileHotAirInput extends TileEntityHotAir {
-    public TileHotAirInput() {
-        super();
-    }
-    
+
     public int getCurrentAirTemp() {
     	TileEntity tile = world.getTileEntity(pos.down());
-		if (tile != null){
+		if (tile != null) {
 			IHotAir capability = tile.getCapability(CapabilityHotAir.HOT_AIR, EnumFacing.UP);
 			if (capability != null) {
 				int temp = capability.getOutAirTemperature();
 				setAirTemp(temp);
 				return temp;
 			}
-
 		}
-		
 		setAirTemp(30);
 		return 30;
     }
     
     @Override
 	public boolean consume(ResourceToken token, boolean doConsume) {
-		if(getCurrentAirTemp() >= token.getRequiredMinTemp() && getCurrentAirTemp() <= token.getRequiredMaxTemp()) {
+		if (getCurrentAirTemp() >= token.getRequiredMinTemp() && getCurrentAirTemp() <= token.getRequiredMaxTemp()) {
 			token.setRequiredTempMet();
-			if (doConsume)
+			if (doConsume) {
 				setAirTemp(token.getTemp());
+			}
 		}
 		return true;
 	}
@@ -51,7 +48,7 @@ public class TileHotAirInput extends TileEntityHotAir {
 
 	@Nullable
     @Override
-    public MachineComponent provideComponent() {
+    public MachineComponent<ICraftingResourceHolder<RequirementHotAir.ResourceToken>> provideComponent() {
         return new MachineComponents.HotAirHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementHotAir.ResourceToken> getContainerProvider() {

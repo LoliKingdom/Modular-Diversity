@@ -23,7 +23,7 @@ public enum EmberHatchSize implements IStringSerializable {
         this.size = size;
     }
 
-    public double getSize() {
+    public double get() {
         return this.size;
     }
 

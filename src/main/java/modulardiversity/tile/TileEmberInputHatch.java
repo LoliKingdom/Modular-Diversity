@@ -11,16 +11,10 @@ import modulardiversity.util.ICraftingResourceHolder;
 import javax.annotation.Nullable;
 
 public class TileEmberInputHatch extends TileEntityEmber {
-    public TileEmberInputHatch() { super(); }
-
-    public TileEmberInputHatch(EmberHatchSize size)
-    {
-        super(size);
-    }
 
     @Nullable
     @Override
-    public MachineComponent provideComponent() {
+    public MachineComponent<ICraftingResourceHolder<RequirementEmber.ResourceToken>> provideComponent() {
         return new MachineComponents.EmberHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementEmber.ResourceToken> getContainerProvider() {

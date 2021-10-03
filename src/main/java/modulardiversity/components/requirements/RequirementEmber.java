@@ -87,7 +87,7 @@ public class RequirementEmber extends RequirementConsumeOnce<Embers,RequirementE
 
         @Override
         public void applyModifiers(RecipeCraftingContext modifiers, RequirementType type, IOType ioType, float durationMultiplier) {
-            ember = Misc.applyModifiers(modifiers,type,ioType,ember,false);
+            ember = Misc.applyModifiers(modifiers, type, ioType, ember, false);
         }
 
         @Override

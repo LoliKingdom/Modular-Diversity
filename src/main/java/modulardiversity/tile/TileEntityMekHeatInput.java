@@ -1,5 +1,6 @@
 package modulardiversity.tile;
 
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.components.requirements.RequirementMekHeat;
@@ -9,9 +10,10 @@ import modulardiversity.util.ICraftingResourceHolder;
 import javax.annotation.Nullable;
 
 public class TileEntityMekHeatInput extends TileEntityMekHeat {
+
     @Nullable
     @Override
-    public MachineComponent provideComponent() {
+    public MachineComponent<ICraftingResourceHolder<RequirementMekHeat.ResourceToken>> provideComponent() {
         return new MachineComponents.MekHeatHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMekHeat.ResourceToken> getContainerProvider() {
@@ -22,11 +24,13 @@ public class TileEntityMekHeatInput extends TileEntityMekHeat {
 
     @Override
     public boolean consume(RequirementMekHeat.ResourceToken token, boolean doConsume) {
-        if(temperature < token.getRequiredTemperatureMin() || temperature > token.getRequiredTemperatureMax())
+        if (temperature < token.getRequiredTemperatureMin() || temperature > token.getRequiredTemperatureMax()) {
             return false;
+        }
         token.setTemperatureMet();
-        if(doConsume)
+        if (doConsume) {
             transferHeatTo(token.getTemperature());
+        }
         return true;
     }
 

@@ -1,6 +1,7 @@
 package modulardiversity.tile;
 
 import betterwithmods.api.BWMAPI;
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.components.requirements.RequirementMechanical;
@@ -12,11 +13,7 @@ import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nullable;
 
-@Optional.Interface(iface = "betterwithmods.api.tile.IMechanicalPower",modid = "betterwithmods")
 public class TileMechOutput extends TileEntityMech implements ITickable {
-    public TileMechOutput() {
-        super();
-    }
 
     public TileMechOutput(int maxLevel) {
         super(maxLevel);
@@ -25,13 +22,11 @@ public class TileMechOutput extends TileEntityMech implements ITickable {
     public int currentPowerLevel;
     public int keepPowerTicks;
 
-    @Optional.Method(modid = "betterwithmods")
     @Override
     public int getMechanicalOutput(EnumFacing facing) {
         return BWMAPI.IMPLEMENTATION.isAxle(world, pos.offset(facing), facing.getOpposite()) ? currentPowerLevel : -1;
     }
 
-    @Optional.Method(modid = "betterwithmods")
     @Override
     public int getMechanicalInput(EnumFacing enumFacing) {
         return 0;
@@ -59,14 +54,15 @@ public class TileMechOutput extends TileEntityMech implements ITickable {
     @Override
     public boolean generate(RequirementMechanical.ResourceToken token, boolean doGenerate) {
         token.setRequiredlevelMet();
-        if(doGenerate)
+        if (doGenerate) {
             setCurrentEnergy(token.getRequiredLevel());
+        }
         return true;
     }
 
     @Nullable
     @Override
-    public MachineComponent provideComponent() {
+    public MachineComponent<ICraftingResourceHolder<RequirementMechanical.ResourceToken>> provideComponent() {
         return new MachineComponents.MechanicalHatch(IOType.OUTPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMechanical.ResourceToken> getContainerProvider() {

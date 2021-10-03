@@ -1,33 +1,27 @@
 package modulardiversity.tile;
 
 import betterwithmods.api.BWMAPI;
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.components.requirements.RequirementMechanical;
 import modulardiversity.tile.base.TileEntityMech;
 import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nullable;
 
-@Optional.Interface(iface = "betterwithmods.api.tile.IMechanicalPower",modid = "betterwithmods")
 public class TileMechInput extends TileEntityMech {
-    public TileMechInput() {
-        super();
-    }
 
     public TileMechInput(int maxLevel) {
         super(maxLevel);
     }
 
-    @Optional.Method(modid = "betterwithmods")
     @Override
     public int getMechanicalOutput(EnumFacing enumFacing) {
         return -1;
     }
 
-    @Optional.Method(modid = "betterwithmods")
     @Override
     public int getMechanicalInput(EnumFacing enumFacing) {
         return BWMAPI.IMPLEMENTATION.getPowerOutput(world, pos.offset(enumFacing), enumFacing.getOpposite());
@@ -39,8 +33,9 @@ public class TileMechInput extends TileEntityMech {
 
     @Override
     public boolean consume(RequirementMechanical.ResourceToken token, boolean doConsume) {
-        if(getCurrentEnergy() >= token.getRequiredLevel())
+        if (getCurrentEnergy() >= token.getRequiredLevel()) {
             token.setRequiredlevelMet();
+        }
         return true;
     }
 
@@ -51,7 +46,7 @@ public class TileMechInput extends TileEntityMech {
 
     @Nullable
     @Override
-    public MachineComponent provideComponent() {
+    public MachineComponent<ICraftingResourceHolder<RequirementMechanical.ResourceToken>> provideComponent() {
         return new MachineComponents.MechanicalHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMechanical.ResourceToken> getContainerProvider() {

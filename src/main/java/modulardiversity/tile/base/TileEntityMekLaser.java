@@ -3,28 +3,18 @@ package modulardiversity.tile.base;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
 import mekanism.api.lasers.ILaserReceptor;
+import mekanism.common.capabilities.Capabilities;
 import modulardiversity.components.requirements.RequirementMekLaser;
 import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.fml.common.Mod;
 
 import static modulardiversity.ModularDiversity.MEKANISM_LASER_CAPACITY;
 
 public abstract class TileEntityMekLaser extends TileColorableMachineComponent implements MachineComponentTile, ILaserReceptor, ICraftingResourceHolder<RequirementMekLaser.ResourceToken> {
-    private double energy;
-    private double capacity;
 
-    @CapabilityInject(ILaserReceptor.class)
-    public static Capability<ILaserReceptor> LASER_RECEPTOR_CAPABILITY = null;
-
-    //TODO add a config for MekLaserAcceptorCapacity
-    public TileEntityMekLaser() {
-        this.capacity = MEKANISM_LASER_CAPACITY;
-        this.energy = 0;
-    }
+    private double energy = 0.0D;
 
     @Override
     public void readCustomNBT(NBTTagCompound compound) {
@@ -35,7 +25,7 @@ public abstract class TileEntityMekLaser extends TileColorableMachineComponent i
     @Override
     public void writeCustomNBT(NBTTagCompound compound) {
         super.writeCustomNBT(compound);
-        compound.setDouble("energy",energy);
+        compound.setDouble("energy", energy);
     }
 
     @Override
@@ -52,19 +42,20 @@ public abstract class TileEntityMekLaser extends TileColorableMachineComponent i
     public boolean consume(RequirementMekLaser.ResourceToken token, boolean doConsume) {
         double energyConsumed = Math.min(getEnergy(),token.getEnergy());
         token.setEnergy(token.getEnergy() - energyConsumed);
-        if (doConsume)
+        if (doConsume) {
             setEnergy(getEnergy() - energyConsumed);
+        }
         return energyConsumed > 0;
     }
 
-    //TODO Implement laser generation
+    // TODO Implement laser generation
     @Override
     public boolean generate(RequirementMekLaser.ResourceToken token, boolean doGenerate) {
         return false;
     }
 
     public void setEnergy(double energy) {
-        this.energy = Math.max(0.0D, Math.min(energy, capacity));
+        this.energy = Math.max(0.0D, Math.min(energy, MEKANISM_LASER_CAPACITY));
     }
 
     public double getEnergy() {
@@ -72,19 +63,15 @@ public abstract class TileEntityMekLaser extends TileColorableMachineComponent i
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing side)
-    {
-        return capability == LASER_RECEPTOR_CAPABILITY || super.hasCapability(capability, side);
+    public boolean hasCapability(Capability<?> capability, EnumFacing side) {
+        return capability == Capabilities.LASER_RECEPTOR_CAPABILITY || super.hasCapability(capability, side);
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing side)
-    {
-        if(capability == LASER_RECEPTOR_CAPABILITY)
-        {
-            return (T)this;
+    public <T> T getCapability(Capability<T> capability, EnumFacing side) {
+        if (capability == Capabilities.LASER_RECEPTOR_CAPABILITY) {
+            return (T) this;
         }
-
         return super.getCapability(capability, side);
     }
 }

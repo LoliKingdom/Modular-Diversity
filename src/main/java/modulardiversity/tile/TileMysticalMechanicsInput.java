@@ -1,5 +1,6 @@
 package modulardiversity.tile;
 
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.components.requirements.RequirementMysticalMechanics;
@@ -12,6 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import javax.annotation.Nullable;
 
 public class TileMysticalMechanicsInput extends TileEntityMysticalMechanics {
+
     @Override
     protected IMechCapability initCapability() {
         return new ConsumerMechCapability();
@@ -20,8 +22,9 @@ public class TileMysticalMechanicsInput extends TileEntityMysticalMechanics {
     @Override
     public boolean consume(RequirementMysticalMechanics.ResourceToken token, boolean doConsume) {
         double power = capability.getPower(null);
-        if(token.getRequiredLevelMin() > power || token.getRequiredLevelMax() < power)
+        if (token.getRequiredLevelMin() > power || token.getRequiredLevelMax() < power) {
             return false;
+        }
         token.setRequiredlevelMet();
         return true;
     }
@@ -33,7 +36,7 @@ public class TileMysticalMechanicsInput extends TileEntityMysticalMechanics {
 
     @Nullable
     @Override
-    public MachineComponent provideComponent() {
+    public MachineComponent<ICraftingResourceHolder<RequirementMysticalMechanics.ResourceToken>> provideComponent() {
         return new MachineComponents.MysticalMechanicsHatch(IOType.INPUT) {
             @Override
             public ICraftingResourceHolder<RequirementMysticalMechanics.ResourceToken> getContainerProvider() {
